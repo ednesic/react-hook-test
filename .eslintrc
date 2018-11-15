@@ -7,6 +7,9 @@
       "document": true,
       "window": true
     },
+    "env": {
+      "jasmine": true
+    },
     "rules": {
       "react/jsx-filename-extension": [
         1,
