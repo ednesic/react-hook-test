@@ -11,7 +11,7 @@ function useImmerReducer(reducer, initialState) {
 }
 
 export default () => {
-  const [section, dispatch] = useImmerReducer(SectionsReducer, '');
+  const [section, dispatch] = useImmerReducer(SectionsReducer, 'world');
 
   return (
     <SectionContext.Provider value={{ section, dispatch }}>

@@ -10,7 +10,7 @@ const Menu = () => (
       .map(([
         sectionKey,
         sectionName,
-      ]) => (<Section key={sectionKey} sectionKey={sectionKey} sectionName={sectionName} />))}
+      ]) => (<Section key={sectionKey} sectionKey={sectionKey} sectionName={sectionName.text} />))}
   </Fragment>
 );
 export default Menu;

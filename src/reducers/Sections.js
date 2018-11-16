@@ -1,11 +1,8 @@
 export const SectionNames = {
-  TECNOLOGY: 'Ciência & Tecnologia',
-  HEALTH: 'Saúde',
-  POLITICS: 'Política',
-  WORLD: 'Mundo',
+  TECNOLOGY: { text: 'Ciência & Tecnologia', api: 'technology' },
+  HEALTH: { text: 'Saúde', api: 'health' },
+  POLITICS: { text: 'Política', api: 'politics' },
+  WORLD: { text: 'Mundo', api: 'world' },
 };
 
-export default (section, action) => {
-  section = action.type;
-  return section;
-};
+export default (_, action) => SectionNames[action.type].api;
