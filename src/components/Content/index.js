@@ -25,7 +25,7 @@ export default () => {
   return (
     <Fragment>
       {news.map(result => (
-        <News data-testid="username-input" key={result.title} {...result} />
+        <News key={result.title} {...result} />
       ))}
     </Fragment>
   );
