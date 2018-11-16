@@ -7,16 +7,18 @@ const News = (props) => {
     published_date,
     byline,
     kicker,
+    abstract,
   } = props;
-  const [showKicker, setKicker] = useState(false);
+  const [showMoreInfo, setShowMoreInfo] = useState(false);
 
   return (
     <div role="article">
-      <div role="presentation" onClick={() => { setKicker(!showKicker); }}>
+      <div role="presentation" onClick={() => { setShowMoreInfo(!showMoreInfo); }}>
         <h3 id="Title">{title}</h3>
+        { showMoreInfo ? <p id="Kicker">{kicker}</p> : ''}
         <div id="PublishedDate">{published_date}</div>
         <div id="ByLine">{byline}</div>
-        { showKicker ? <p id="Kicker">{kicker}</p> : ''}
+        { showMoreInfo ? <p id="Abstract">{abstract}</p> : ''}
         <hr />
       </div>
     </div>
@@ -25,6 +27,7 @@ const News = (props) => {
 
 News.defaultProps = {
   kicker: '',
+  abstract: '',
 };
 
 News.propTypes = {
@@ -32,6 +35,7 @@ News.propTypes = {
   published_date: PropTypes.string.isRequired,
   byline: PropTypes.string.isRequired,
   kicker: PropTypes.string,
+  abstract: PropTypes.string,
 };
 
 export default News;
