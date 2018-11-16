@@ -1,53 +1,63 @@
 import React from 'react';
-import { fakeServer } from 'sinon';
-import { mount } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import nock from 'nock';
 
 import SectionContext from '../../contexts/SectionContext';
 import Content from './index';
-import { apiResponse } from '../../data/fixtures';
+import News from './News';
+import { apiTechResponse, apiWorldResponse } from '../../data/fixtures';
 import SectionReducer from '../../reducers/Sections';
 
 
 describe('Content', () => {
-  let server;
-  const sectionTest = 'technology';
+  const sectionTest1 = 'technology';
+  const sectionTest2 = 'world';
+  let sectionMount;
+  let state = { section: sectionTest1 };
+
+  const dispatch = (action) => {
+    state = SectionReducer(state, action);
+  };
 
   beforeEach(() => {
-    console.log(`https://api.nytimes.com/svc/topstories/v2/${sectionTest}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`);
-    server = fakeServer.create();
-    server.respondWith(
-      'GET',
-      `https://api.nytimes.com/svc/topstories/v2/${sectionTest}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`,
-      [
-        200,
-        { 'Content-Type': 'application/json' },
-        JSON.stringify(apiResponse),
-      ],
-    );
+    process.env.REACT_APP_NY_TIMES_URL = 'http://mockTestnytimes.com';
+    nock(process.env.REACT_APP_NY_TIMES_URL)
+      .get(`/svc/topstories/v2/${sectionTest1}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
+      .reply(200, apiTechResponse);
+    nock(process.env.REACT_APP_NY_TIMES_URL)
+      .get(`/svc/topstories/v2/${sectionTest2}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
+      .reply(200, apiWorldResponse);
   });
 
   describe('Content after request', () => {
-    let sectionMount;
-    let state = { section: sectionTest };
-    const dispatch = (action) => {
-      state = SectionReducer(state, action);
-    };
     beforeEach((done) => {
-      sectionMount = mount(
+      sectionMount = TestRenderer.create(
         <SectionContext.Provider value={{ ...state, dispatch }}>
           <Content />
         </SectionContext.Provider>,
       );
-      server.respond();
+      sectionMount.update(
+        <SectionContext.Provider value={{ ...state, dispatch }}>
+          <Content />
+        </SectionContext.Provider>,
+      );
 
-
-      setTimeout(done);
+      setTimeout(done, 1000); // unfortunate timeout due mock server
     });
 
     it('context state', () => {
-      // useEffects não está sendo chamado
-      // TODO teste em que é feito um mock da requesição e teste se os valores estão aparecendo e a cada mudança de menu, esse componente re-renderize
-      expect(true);
+      expect(sectionMount.root.findAllByType(News).length).toEqual(apiTechResponse.results.length);
+    });
+
+    it('changes state', () => {
+      state = { section: sectionTest2 };
+      sectionMount.update(
+        <SectionContext.Provider value={{ ...state, dispatch }}>
+          <Content />
+        </SectionContext.Provider>,
+      );
+      expect(sectionMount.root.findAllByType(News).length)
+        .toEqual(apiWorldResponse.results.length);
     });
   });
 });

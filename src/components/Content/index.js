@@ -7,8 +7,7 @@ import SectionContext from '../../contexts/SectionContext';
 import News from './News';
 
 const getNewsFromSection = (section, setNews) => {
-  console.log(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`);
-  fetch(`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
+  fetch(`${process.env.REACT_APP_NY_TIMES_URL}/svc/topstories/v2/${section}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
     .then(res => res.json())
     .then(json => setNews(json.results))
     .catch(err => console.log(err)); // TODO: error
