@@ -11,9 +11,12 @@ const Article = styled.article`
 
 const H3 = styled.h3`
   line-height: 1.875rem;
-  font-weight: 200;
+  font-weight: 700;
   font-style: normal;
   font-family: "cheltenham-normal-200",georgia,"times new roman",times,serif;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const P = styled.p`
