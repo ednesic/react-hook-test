@@ -6,7 +6,11 @@ import TimeDiff from '../../utils/time';
 
 const Article = styled.article`
   width: 29%;
-  margin: 2%;
+  padding: 2%;
+  border-right: 1px solid #999;
+  &:nth-child(3n +1) {
+    border-right: none;
+  }
 `;
 
 const H3 = styled.h3`
@@ -52,10 +56,10 @@ const News = (props) => {
     <Article onClick={() => { setShowMoreInfo(!showMoreInfo); }}>
       <H3 className="title">{title}</H3>
       { showMoreInfo ? <P className="kicker">{kicker}</P> : ''}
+      { showMoreInfo ? <P className="abstract">{abstract}</P> : ''}
       <Span className="publishedDate">{TimeDiff(new Date(published_date))}</Span>
       <SpanDivider className="divider" />
       <Span className="byLine">{byline}</Span>
-      { showMoreInfo ? <P className="abstract">{abstract}</P> : ''}
       <hr />
     </Article>
   );
