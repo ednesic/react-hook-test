@@ -10,8 +10,8 @@ import SectionReducer from '../../reducers/Sections';
 
 
 describe('Content', () => {
-  const sectionTest1 = 'technology';
-  const sectionTest2 = 'world';
+  const sectionTest1 = { api: 'technology', text: 'Technology' };
+  const sectionTest2 = { api: 'world', text: 'World' };
   let sectionMount;
   let state = { section: sectionTest1 };
 
@@ -22,10 +22,10 @@ describe('Content', () => {
   beforeEach(() => {
     process.env.REACT_APP_NY_TIMES_URL = 'http://mockTestnytimes.com';
     nock(process.env.REACT_APP_NY_TIMES_URL)
-      .get(`/svc/topstories/v2/${sectionTest1}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
+      .get(`/svc/topstories/v2/${sectionTest1.api}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
       .reply(200, apiTechResponse);
     nock(process.env.REACT_APP_NY_TIMES_URL)
-      .get(`/svc/topstories/v2/${sectionTest2}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
+      .get(`/svc/topstories/v2/${sectionTest2.api}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
       .reply(200, apiWorldResponse);
   });
 

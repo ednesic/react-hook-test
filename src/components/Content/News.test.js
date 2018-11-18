@@ -11,17 +11,17 @@ describe('Section', () => {
     const news = mount(<News {...props} />);
 
     it('create the news as expected', () => {
-      expect(news.find('#Title').text()).toEqual(props.title);
-      expect(news.find('#ByLine').text()).toEqual(props.byline);
-      expect(news.find('#PublishedDate').text()).toEqual(props.published_date);
-      expect(news.find('#PublishedDate').text()).toEqual(props.published_date);
-      expect(news.find('#Kicker').exists()).toBe(false);
+      expect(news.find('h3').text()).toEqual(props.title);
+      expect(news.find('.byLine').first().text()).toEqual(props.byline);
+      expect(news.find('.publishedDate').first().first().text()).toEqual(props.published_date);
+      expect(news.find('.publishedDate').first().text()).toEqual(props.published_date);
+      expect(news.find('.kicker').exists()).toBe(false);
     });
 
     it('onclick shows more information', () => {
-      news.find('#Title').simulate('click');
-      const kicker = news.find('#Kicker');
-      const abstract = news.find('#Abstract');
+      news.find('h3').simulate('click');
+      const kicker = news.find('.kicker').first();
+      const abstract = news.find('.abstract').first();
       expect(kicker.exists()).toBeTruthy();
       expect(abstract.exists()).toBeTruthy();
       expect(kicker.text()).toEqual(props.kicker);
@@ -29,9 +29,9 @@ describe('Section', () => {
     });
 
     it('onclick again hide kicker', () => {
-      news.find('#Title').simulate('click');
-      const abstract = news.find('#Abstract');
-      const kicker = news.find('#Kicker');
+      news.find('h3').simulate('click');
+      const abstract = news.find('.abstract');
+      const kicker = news.find('.kicker');
       expect(abstract.exists()).toBeFalsy();
       expect(kicker.exists()).toBeFalsy();
     });

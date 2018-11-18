@@ -1,5 +1,39 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+import TimeDiff from '../../utils/time';
+
+const Article = styled.article`
+  width: 29%;
+  margin: 2%;
+`;
+
+const H3 = styled.h3`
+  line-height: 1.875rem;
+  font-weight: 200;
+  font-style: normal;
+  font-family: "cheltenham-normal-200",georgia,"times new roman",times,serif;
+`;
+
+const P = styled.p`
+  font-style: normal;
+  font-family: "cheltenham-normal-200",georgia,"times new roman",times,serif;
+`;
+
+const Span = styled.span`
+  color: #999;
+  font-size: 0.6875rem;
+`;
+
+const SpanDivider = styled.span`
+  border-radius: 1px;
+  background-color: #999;
+  width: 2px;
+  height: 2px;
+  display: inline-block;
+  margin: 6px 5px 2px;
+`;
 
 const News = (props) => {
   const {
@@ -12,16 +46,15 @@ const News = (props) => {
   const [showMoreInfo, setShowMoreInfo] = useState(false);
 
   return (
-    <div role="article">
-      <div role="presentation" onClick={() => { setShowMoreInfo(!showMoreInfo); }}>
-        <h3 id="Title">{title}</h3>
-        { showMoreInfo ? <p id="Kicker">{kicker}</p> : ''}
-        <div id="PublishedDate">{published_date}</div>
-        <div id="ByLine">{byline}</div>
-        { showMoreInfo ? <p id="Abstract">{abstract}</p> : ''}
-        <hr />
-      </div>
-    </div>
+    <Article onClick={() => { setShowMoreInfo(!showMoreInfo); }}>
+      <H3 className="title">{title}</H3>
+      { showMoreInfo ? <P className="kicker">{kicker}</P> : ''}
+      <Span className="publishedDate">{TimeDiff(new Date(published_date))}</Span>
+      <SpanDivider className="divider" />
+      <Span className="byLine">{byline}</Span>
+      { showMoreInfo ? <P className="abstract">{abstract}</P> : ''}
+      <hr />
+    </Article>
   );
 };
 
