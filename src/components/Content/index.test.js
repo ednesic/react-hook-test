@@ -45,11 +45,11 @@ describe('Content', () => {
       setTimeout(done, 1000); // unfortunate timeout due mock server
     });
 
-    it('context state', () => {
+    it('Mounted all news', () => {
       expect(sectionMount.root.findAllByType(News).length).toEqual(apiTechResponse.results.length);
     });
 
-    it('changes state', () => {
+    it('Mount all news on section change', () => {
       state = { section: sectionTest2 };
       sectionMount.update(
         <SectionContext.Provider value={{ ...state, dispatch }}>

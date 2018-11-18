@@ -6,15 +6,14 @@ import News from './News';
 describe('Section', () => {
   describe('Mounting Section', () => {
     const props = {
-      title: 'TitleTest', published_date: 'PublishedDateTest', byline: 'Testman', kicker: 'kicktest', abstract: 'aabstest',
+      title: 'TitleTest', published_date: new Date().toString(), byline: 'Testman', kicker: 'kicktest', abstract: 'aabstest',
     };
     const news = mount(<News {...props} />);
 
     it('create the news as expected', () => {
       expect(news.find('h3').text()).toEqual(props.title);
       expect(news.find('.byLine').first().text()).toEqual(props.byline);
-      expect(news.find('.publishedDate').first().first().text()).toEqual(props.published_date);
-      expect(news.find('.publishedDate').first().text()).toEqual(props.published_date);
+      expect(news.find('.publishedDate').first().text()).toEqual('Just Now');
       expect(news.find('.kicker').exists()).toBe(false);
     });
 

@@ -19,7 +19,7 @@ const getNewsFromSection = (section, setNews) => {
   fetch(`${process.env.REACT_APP_NY_TIMES_URL}/svc/topstories/v2/${section}.json?api-key=${process.env.REACT_APP_NY_TIMES_API_KEY}`)
     .then(res => res.json())
     .then(json => setNews(json.results))
-    .catch(err => console.log(err)); // TODO: error
+    .catch(err => console.log(err));
 };
 
 export default () => {
