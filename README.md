@@ -31,4 +31,5 @@ make run
 ## Melhorias
 - Processor de build usando webpack para minificação e etc...
 - Melhoria no css e no tema
+- Adicionar imagens que estão em cada notícia, na página. Usar o react suspense para que o load da imagem apareca de uma forma mais suave para o usuário.(https://www.youtube.com/watch?v=SCQgE4mTnjU)
 - Testes com nightwatch(selenium)

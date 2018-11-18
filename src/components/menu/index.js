@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import Section from './Section';
@@ -20,4 +20,4 @@ const Menu = () => (
       ]) => (<Section key={sectionKey} sectionKey={sectionKey} sectionName={sectionName.text} />))}
   </Header>
 );
-export default Menu;
+export default memo(Menu);
